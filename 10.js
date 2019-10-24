@@ -35,9 +35,9 @@ try {
     });
 
     fileNames.forEach(fileName => {
-      const shouldProcessFiles = processedFileNames.length < config.threshold;
+      const shouldProcessFile = processedFileNames.length < config.threshold;
 
-      if (shouldProcessFiles) {
+      if (shouldProcessFile) {
         const filePath = path.join(config.filePath, fileName);
         let text = fs.readFileSync(filePath, ENCODING);
         const isMatch = rule.pattern.test(text);
