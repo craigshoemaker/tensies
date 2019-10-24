@@ -1,6 +1,4 @@
-# tensies: The batch Markdown clean up tool that
-
-
+# tensies: Batch Markdown clean up tool
 
 ## Configuration
 
