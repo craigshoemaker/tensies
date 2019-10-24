@@ -45,6 +45,6 @@ To run tensies against a folder, add the folder path to *config.json*. When you 
     ```
 ## Add a rule
 
-Rules are implemented as simple JavaScript objects. Each rule features a description, a matching pattern (regular expression), and a `run` function which handles the text replacement. You can add a new rule in the rules object.
+Rules are implemented as simple JavaScript objects. Each rule features a description, a matching pattern (regular expression), and a `run` function which handles the text replacement. You can add a new rule in the [rules](https://github.com/craigshoemaker/tensies/blob/master/rules.js) object.
 
-Once a rule is listed in the rules object, then it automatically appears when users list rules by using the `--rules` switch.
+Once a rule is listed in the [rules](https://github.com/craigshoemaker/tensies/blob/master/rules.js) object, then it automatically appears when users list rules by using the `--rules` switch.
