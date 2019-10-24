@@ -10,8 +10,8 @@ console.log('\nRunning tensies...\n');
 
 if (args.rules) {
   const keys = Object.keys(rules);
+  console.log('Available rules:');
   keys.forEach(key => {
-    console.log('Available rules:');
     console.log(` - ${key}: ${rules[key].description}`);
   });
   return;
