@@ -9,7 +9,8 @@
       "request": "launch",
       "name": "Launch Program",
       "program": "${workspaceFolder}\\10.js",
-      "args": ["trimTitle"]
+      //"args": ["--all"]
+      "args": ["trimTitle", "replaceManager", "removeDocumentationCenter", "removeServices"]
     }
   ]
 }
