@@ -62,7 +62,6 @@ try {
         });
       }
 
-<<<<<<< HEAD
       let j = 0;
       // If we don't have all X files, add some in this pass.
       while (processedFiles.length < config.threshold) {
@@ -79,15 +78,6 @@ try {
         if (!isProcessed) {
           const file = new Object;
           file.name = sourceFileNames[j];
-=======
-    fileNames.forEach(fileName => {
-      const shouldProcessFile = processedFileNames.length < config.threshold;
-
-      if (shouldProcessFile) {
-        const filePath = path.join(config.filePath, fileName);
-        let text = fs.readFileSync(filePath, ENCODING);
-        const isMatch = rule.pattern.test(text);
->>>>>>> da4edf261705fd7a21aa8cd447d044a0497c498c
 
           file.path = path.join(config.filePath, file.name);
           file.text = fs.readFileSync(file.path, ENCODING);
