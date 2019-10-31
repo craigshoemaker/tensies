@@ -16,14 +16,14 @@ module.exports = {
   },
   removeServices: {
     description: "Remove the unused \"services:\" metadata.",
-    pattern: /services:.*\m/,
+    pattern: /services:.*\n/,
     run: function(content) {
       return content.replace(this.pattern, "");
     }
   },
   removeDocumentationCenter: {
     description: "Remove the unused \"documentationcenter:\" metadata.",
-    pattern: /documentationcenter:.*\m/,
+    pattern: /documentationcenter:.*\n/,
     run: function(content) {
       return content.replace(this.pattern, "");
     }
