@@ -78,10 +78,10 @@ try {
       console.log("\nNo files were modified by this rule.");
     }
 
-    console.log("\nDone");
   } else {
     console.log(`Rule "${ruleName}" does not exist.`);
   }
+  console.log("\nDone");
 } catch(e) {
   console.log(`Error: ${JSON.stringify(e)}`);
 }
