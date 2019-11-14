@@ -79,6 +79,8 @@ try {
     }
 
     console.log("\nDone");
+  } else {
+    console.log(`Rule "${ruleName}" does not exist.`);
   }
 } catch(e) {
   console.log(`Error: ${JSON.stringify(e)}`);
