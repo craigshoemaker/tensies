@@ -9,10 +9,9 @@ const ENCODING = 'utf8';
 console.log('\nRunning tensies...\n');
 
 if (args.rules) {
-  const keys = Object.keys(rules);
   console.log('Available rules:');
-  keys.forEach(key => {
-    console.log(` - ${key}: ${rules[key].description}`);
+  rules.get().forEach(rule => {
+    console.log(` - ${rule.id}: ${rule.description}`);
   });
   return;
 } 
@@ -20,16 +19,17 @@ if (args.rules) {
 try {
 
   const ruleName = args._[0];
-  const rule = rules[ruleName];
+  const currentRules = rules.get(ruleName);
 
   const fileInfo = [];
   const processedFiles = [];
 
-  if (rule) {
-    console.log(`[RULE] ${ruleName}: ${rule.description}`);
+  const hasRulesToRun = currentRules.length > 0;
+
+  if (hasRulesToRun) {
 
     fs.readdirSync(config.filePath).forEach(fileName => {
-      if(/\.md/.test(fileName)) {
+      if (/\.md/.test(fileName)) {
         fileInfo.push({
           name: fileName,
           fullPath: path.join(config.filePath, fileName)
@@ -37,29 +37,43 @@ try {
       }
     });
 
+    let ruleMessages = [];
+
     fileInfo.forEach(file => {
       const shouldProcessFile = processedFiles.length < config.threshold;
 
       if (shouldProcessFile) {
         let text = fs.readFileSync(file.fullPath, ENCODING);
-        const isMatch = rule.getPattern(config).test(text);
+        let isUpdated = false;
 
-        if (isMatch) {
+        currentRules.forEach(rule => {
+          const isMatch = rule.getPattern(config).test(text);
+          if (isMatch) {
+            ruleMessages.push(`[RULE] ${rule.id}: ${rule.description}`);
+            isUpdated = true;
+            text = rule.run(text, config);
+          }
+        });
+
+        if (isUpdated) {
           processedFiles.push({
             name: file.name
           });
-          text = rule.run(text, config);
           fs.writeFileSync(file.fullPath, text, ENCODING);
         }
       }
     });
 
+    ruleMessages = [...new Set(ruleMessages)];
+
+    console.log(ruleMessages.join("\n"));
+
     console.log(`\nNumber of files modified: ${processedFiles.length}`);
 
     if (processedFiles.length > 0) {
-      console.log("\n - " + processedFiles
-                              .map(file => file.name)
-                              .join("\n - "));
+      console.log(
+        "\n - " + processedFiles.map(file => file.name).join("\n - ")
+      );
     } else {
       console.log("\nNo files were modified by this rule.");
     }
