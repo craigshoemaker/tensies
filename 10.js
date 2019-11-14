@@ -22,7 +22,7 @@ try {
   const currentRules = rules.get(ruleName);
 
   const fileInfo = [];
-  const processedFiles = [];
+  const updatedFiles = [];
 
   const hasRulesToRun = currentRules.length > 0;
 
@@ -40,7 +40,7 @@ try {
     let ruleMessages = [];
 
     fileInfo.forEach(file => {
-      const shouldProcessFile = processedFiles.length < config.threshold;
+      const shouldProcessFile = updatedFiles.length < config.threshold;
 
       if (shouldProcessFile) {
         let text = fs.readFileSync(file.fullPath, ENCODING);
@@ -56,7 +56,7 @@ try {
         });
 
         if (isUpdated) {
-          processedFiles.push({
+          updatedFiles.push({
             name: file.name
           });
           fs.writeFileSync(file.fullPath, text, ENCODING);
@@ -68,11 +68,11 @@ try {
 
     console.log(ruleMessages.join("\n"));
 
-    console.log(`\nNumber of files modified: ${processedFiles.length}`);
+    console.log(`\nNumber of files modified: ${updatedFiles.length}`);
 
-    if (processedFiles.length > 0) {
+    if (updatedFiles.length > 0) {
       console.log(
-        "\n - " + processedFiles.map(file => file.name).join("\n - ")
+        "\n - " + updatedFiles.map(file => file.name).join("\n - ")
       );
     } else {
       console.log("\nNo files were modified by this rule.");
