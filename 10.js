@@ -1,6 +1,6 @@
 const args = require('yargs').argv;
 const config = require('./config').read();
-const rules = require('./rules');
+const rules = require('./modules/rules');
 const fs = require("fs");
 const path = require("path");
 
