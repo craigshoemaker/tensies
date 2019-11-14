@@ -22,38 +22,44 @@ try {
   const ruleName = args._[0];
   const rule = rules[ruleName];
 
-  const fileNames = [];
-  const processedFileNames = [];
+  const fileInfo = [];
+  const processedFiles = [];
 
   if (rule) {
     console.log(`[RULE] ${ruleName}: ${rule.description}`);
 
     fs.readdirSync(config.filePath).forEach(fileName => {
       if(/\.md/.test(fileName)) {
-        fileNames.push(fileName);
+        fileInfo.push({
+          name: fileName,
+          fullPath: path.join(config.filePath, fileName)
+        });
       }
     });
 
-    fileNames.forEach(fileName => {
-      const shouldProcessFile = processedFileNames.length < config.threshold;
+    fileInfo.forEach(file => {
+      const shouldProcessFile = processedFiles.length < config.threshold;
 
       if (shouldProcessFile) {
-        const filePath = path.join(config.filePath, fileName);
-        let text = fs.readFileSync(filePath, ENCODING);
+        let text = fs.readFileSync(file.fullPath, ENCODING);
         const isMatch = rule.getPattern(config).test(text);
 
         if (isMatch) {
-          processedFileNames.push(fileName);
+          processedFiles.push({
+            name: file.name
+          });
           text = rule.run(text, config);
-          fs.writeFileSync(filePath, text, ENCODING);
+          fs.writeFileSync(file.fullPath, text, ENCODING);
         }
       }
     });
 
-    console.log(`\nNumber of files modified: ${processedFileNames.length}`);
+    console.log(`\nNumber of files modified: ${processedFiles.length}`);
 
-    if (processedFileNames.length > 0) {
-      console.log("\n - " + processedFileNames.join("\n - "));
+    if (processedFiles.length > 0) {
+      console.log("\n - " + processedFiles
+                              .map(file => file.name)
+                              .join("\n - "));
     } else {
       console.log("\nNo files were modified by this rule.");
     }
