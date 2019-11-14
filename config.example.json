@@ -1,8 +1,16 @@
 {
   "threshold": 10,
   "filePath": "PATH_TO_FOLDER_YOU_WANT_TO_PROCESS",
-  "deprecatedMetadata": [
-    "documentationcenter",
-    "services"
-  ]
+  "metadata": {
+    "deprecated": [
+      "documentationcenter",
+      "services"
+    ],
+    "replacements": {
+      "manager": {
+        "old": "OLD_MANAGER_ALIAS",
+        "new": "NEW_MANAGER_ALIAS"
+      }
+    }
+  }
 }
