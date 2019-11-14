@@ -8,11 +8,11 @@ module.exports = {
   },
 
   removeDeprecatedMetadata: {
-    description: "Remove deprecated metadata",
+    description: "Remove deprecated metadata (values defined in config)",
     getPattern: config => {
-      const { deprecatedMetadata } = config;
+      const { deprecated } = config.metadata;
       const suffix = ":.*\n";
-      const expression = deprecatedMetadata.join(`${suffix}|`) + suffix;
+      const expression = deprecated.join(`${suffix}|`) + suffix;
       const regex = new RegExp(expression, 'g');
       return regex;
     },
