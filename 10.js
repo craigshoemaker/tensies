@@ -40,11 +40,11 @@ try {
       if (shouldProcessFile) {
         const filePath = path.join(config.filePath, fileName);
         let text = fs.readFileSync(filePath, ENCODING);
-        const isMatch = rule.pattern.test(text);
+        const isMatch = rule.getPattern(config).test(text);
 
         if (isMatch) {
           processedFileNames.push(fileName);
-          text = rule.run(text);
+          text = rule.run(text, config);
           fs.writeFileSync(filePath, text, ENCODING);
         }
       }
