@@ -7,9 +7,20 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Program",
+      "name": "trimTitle",
       "program": "${workspaceFolder}\\10.js",
       "args": ["trimTitle"]
+    },
+
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "removeDeprecatedMetadata",
+      "program": "${workspaceFolder}\\10.js",
+      "args": [
+        "removeDeprecatedMetadata"
+      ]
     }
+    
   ]
 }

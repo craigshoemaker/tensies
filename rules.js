@@ -6,4 +6,18 @@ module.exports = {
       return content.replace(this.getPattern(), "$1");
     }
   },
+
+  removeDeprecatedMetadata: {
+    description: "Remove deprecated metadata",
+    getPattern: config => {
+      const { deprecatedMetadata } = config;
+      const suffix = ":.*\n";
+      const expression = deprecatedMetadata.join(`${suffix}|`) + suffix;
+      const regex = new RegExp(expression, 'g');
+      return regex;
+    },
+    run: function(content, config) {
+      return content.replace(this.getPattern(config), "");
+    }
+  }
 };
