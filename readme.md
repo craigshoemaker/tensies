@@ -9,7 +9,7 @@ To run tensies against a folder, add the folder path to *config.json*. When you 
 1. Get a list of all available rules
 
     ```bash
-    node 10.js --rules    
+    node 10.js --rules
     ```
 
     Which returns a list of rules:
@@ -23,13 +23,21 @@ To run tensies against a folder, add the folder path to *config.json*. When you 
 
 2. Run a rule
 
+    To run a rule, use the following syntax:
+
+    ```bash
+    node 10 trimTitle
+    ```
+
+    Which returns a response like:
+
     ```bash
     Running tensies...
-    
+
     [RULE] trimTitle: Trim "|" and anything after it from the metadata title
-    
+
     Number of files modified: 10
-    
+
      - app-service-export-api-to-powerapps-and-flow.md
      - create-function-app-linux-app-service-plan.md
      - deployment-zip-push.md
@@ -40,9 +48,10 @@ To run tensies against a folder, add the folder path to *config.json*. When you 
      - functions-create-cosmos-db-triggered-function.md
      - functions-create-function-app-portal.md
      - functions-create-maven-eclipse.md
-    
+
     Done
     ```
+
 ## Add a rule
 
 Rules are implemented as simple JavaScript objects. Each rule features a description, a matching pattern (regular expression), and a `run` function which handles the text replacement. You can add a new rule in the [rules](https://github.com/craigshoemaker/tensies/blob/master/rules.js) object.
