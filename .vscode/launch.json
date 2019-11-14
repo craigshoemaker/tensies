@@ -20,6 +20,16 @@
       "args": [
         "removeDeprecatedMetadata"
       ]
+    },
+
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "updateManagerAlias",
+      "program": "${workspaceFolder}\\10.js",
+      "args": [
+        "updateManagerAlias"
+      ]
     }
     
   ]

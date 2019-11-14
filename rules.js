@@ -19,5 +19,20 @@ module.exports = {
     run: function(content, config) {
       return content.replace(this.getPattern(config), "");
     }
+  },
+
+  updateManagerAlias: {
+    description: "Update manager alias (values defined in config)",
+    getPattern: config => {
+      const { manager } = config.metadata.replacements;
+      return new RegExp(`manager: ?${manager.old}`)
+    },
+    run: function (content, config) {
+      const { manager } = config.metadata.replacements;
+      return content.replace(
+        this.getPattern(config),
+        `manager: ${manager.new}`
+      );
+    }
   }
 };
