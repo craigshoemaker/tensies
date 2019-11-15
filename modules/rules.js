@@ -1,5 +1,7 @@
-const _rules = {
-  trimTitle: {
+const _rules = [
+
+  {
+    id: "trimTitle",
     description: 'Trim "|" and anything after it from the metadata title',
     getPattern: () => /(title:.*)(\|.*)/,
     run: function(content) {
@@ -7,13 +9,14 @@ const _rules = {
     }
   },
 
-  removeDeprecatedMetadata: {
+  {
+    id: "removeDeprecatedMetadata",
     description: "Remove deprecated metadata (values defined in config)",
     getPattern: config => {
       const { deprecated } = config.metadata;
       const suffix = ":.*\n";
       const expression = deprecated.join(`${suffix}|`) + suffix;
-      const regex = new RegExp(expression, 'g');
+      const regex = new RegExp(expression, "g");
       return regex;
     },
     run: function(content, config) {
@@ -21,13 +24,14 @@ const _rules = {
     }
   },
 
-  updateManagerAlias: {
+  {
+    id: "updateManagerAlias",
     description: "Update manager alias (values defined in config)",
     getPattern: config => {
       const { manager } = config.metadata.replacements;
-      return new RegExp(`manager: ?${manager.old}`)
+      return new RegExp(`manager: ?${manager.old}`);
     },
-    run: function (content, config) {
+    run: function(content, config) {
       const { manager } = config.metadata.replacements;
       return content.replace(
         this.getPattern(config),
@@ -35,27 +39,20 @@ const _rules = {
       );
     }
   }
-};
+];
 
 const getRules = ruleName => {
-
-  let rules = [];
+  let rules;
 
   const runAllRules = !ruleName || /all/.test(ruleName);
-  const ruleExists = !!_rules[ruleName];
 
   if (runAllRules) {
-    Object.keys(_rules).map(ruleName => {
-      const rule = { ..._rules[ruleName], ...{ id: ruleName } };
-      rules.push(rule);
-    });
-  } else if(ruleExists) {
-    const rule = { ..._rules[ruleName], ...{ id: ruleName } };
-    rules.push(rule);
+    rules = _rules;
+  } else {
+    rules = _rules.filter(r => r.id === ruleName);
   }
 
   return rules;
-
 };
 
 module.exports = {
