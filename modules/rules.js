@@ -41,7 +41,7 @@ const _rules = [
   }
 ];
 
-const getRules = ruleName => {
+const get = ruleName => {
   let rules;
 
   const runAllRules = !ruleName || /all/.test(ruleName);
@@ -55,6 +55,4 @@ const getRules = ruleName => {
   return rules;
 };
 
-module.exports = {
-  get: getRules
-};
+module.exports = { get };
