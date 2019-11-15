@@ -4,13 +4,59 @@
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
+
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Program",
+      "name": "all",
       "program": "${workspaceFolder}\\10.js",
+      "args": [
+        "all"
+      ]
+    },
+
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Invalid rule",
+      "program": "${workspaceFolder}\\10.js",
+      "args": [
+        "twoGuysWalkIntoABarDontYouThinkOneOfThemWouldHaveDucked"
+      ]
+    },
+
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "trimTitle",
+      "program": "${workspaceFolder}\\10.js",
+<<<<<<< HEAD
       //"args": ["--all"]
       "args": ["trimTitle", "replaceManager", "removeDocumentationCenter", "removeServices"]
+=======
+      "args": ["trimTitle"]
+    },
+
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "removeDeprecatedMetadata",
+      "program": "${workspaceFolder}\\10.js",
+      "args": [
+        "removeDeprecatedMetadata"
+      ]
+    },
+
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "updateManagerAlias",
+      "program": "${workspaceFolder}\\10.js",
+      "args": [
+        "updateManagerAlias"
+      ]
+>>>>>>> 47dea1af75ac1f204bf51406c6b762a5e3a5ae33
     }
+    
   ]
 }

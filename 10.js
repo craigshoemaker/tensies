@@ -1,6 +1,6 @@
 const args = require('yargs').argv;
 const config = require('./config').read();
-const rules = require('./rules');
+const rules = require('./modules/rules');
 const fs = require("fs");
 const path = require("path");
 
@@ -10,10 +10,9 @@ console.log('\nRunning tensies...\n');
 
 // Output for --rules.
 if (args.rules) {
-  const keys = Object.keys(rules);
   console.log('Available rules:');
-  keys.forEach(key => {
-    console.log(` - ${key}: ${rules[key].description}`);
+  rules.get().forEach(rule => {
+    console.log(` - ${rule.id}: ${rule.description}`);
   });
   return;
 }
@@ -36,6 +35,7 @@ if (args.all) {
 
 try {
 
+<<<<<<< HEAD
   // Load the list of files in the directory.
   fs.readdirSync(config.filePath).forEach(fileName => {
     if (/\.md/.test(fileName)) {
@@ -59,9 +59,27 @@ try {
       if (processedFiles.length > 0) {
         processedFiles.forEach(file => {
           processMatchingFiles(file, rule);
+=======
+  const ruleName = args._[0];
+  const currentRules = rules.get(ruleName);
+
+  const fileInfo = [];
+  const updatedFiles = [];
+
+  const hasRulesToRun = currentRules.length > 0;
+
+  if (hasRulesToRun) {
+
+    fs.readdirSync(config.filePath).forEach(fileName => {
+      if (/\.md/.test(fileName)) {
+        fileInfo.push({
+          name: fileName,
+          fullPath: path.join(config.filePath, fileName)
+>>>>>>> 47dea1af75ac1f204bf51406c6b762a5e3a5ae33
         });
       }
 
+<<<<<<< HEAD
       let j = 0;
       // If we don't have all X files, add some in this pass.
       while (processedFiles.length < config.threshold) {
@@ -88,12 +106,38 @@ try {
               processedFiles.push(file);
             }
           }
+=======
+    let ruleMessages = [];
+
+    fileInfo.forEach(file => {
+      const shouldProcessFile = updatedFiles.length < config.threshold;
+
+      if (shouldProcessFile) {
+        let text = fs.readFileSync(file.fullPath, ENCODING);
+        let isUpdated = false;
+
+        currentRules.forEach(rule => {
+          const isMatch = rule.getPattern(config).test(text);
+          if (isMatch) {
+            ruleMessages.push(`[RULE] ${rule.id}: ${rule.description}`);
+            isUpdated = true;
+            text = rule.run(text, config);
+          }
+        });
+
+        if (isUpdated) {
+          updatedFiles.push({
+            name: file.name
+          });
+          fs.writeFileSync(file.fullPath, text, ENCODING);
+>>>>>>> 47dea1af75ac1f204bf51406c6b762a5e3a5ae33
         }
         j++;
       //}
     };
   });
 
+<<<<<<< HEAD
   // Write out processed files.
   processedFiles.forEach(file => {
     fs.writeFileSync(file.path, file.text, ENCODING);
@@ -117,6 +161,27 @@ try {
   // console.log("\nDone");
 }
 catch (e) {
+=======
+    ruleMessages = [...new Set(ruleMessages)];
+
+    console.log(ruleMessages.join("\n"));
+
+    console.log(`\nNumber of files modified: ${updatedFiles.length}`);
+
+    if (updatedFiles.length > 0) {
+      console.log(
+        "\n - " + updatedFiles.map(file => file.name).join("\n - ")
+      );
+    } else {
+      console.log("\nNo files were modified by this rule.");
+    }
+
+  } else {
+    console.log(`Rule "${ruleName}" does not exist.`);
+  }
+  console.log("\nDone");
+} catch(e) {
+>>>>>>> 47dea1af75ac1f204bf51406c6b762a5e3a5ae33
   console.log(`Error: ${JSON.stringify(e)}`);
 };
 
