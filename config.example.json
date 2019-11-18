@@ -2,15 +2,13 @@
   "threshold": 10,
   "filePath": "PATH_TO_FOLDER_YOU_WANT_TO_PROCESS",
   "metadata": {
-    "deprecated": [
-      "documentationcenter",
-      "services"
-    ],
-    "replacements": {
-      "manager": {
-        "old": "OLD_MANAGER_ALIAS",
-        "new": "NEW_MANAGER_ALIAS"
+    "deprecated": ["documentationcenter", "services"],
+    "replacements": [
+      {
+        "token": "manager",
+        "oldValue": "OLD_MANAGER_ALIAS",
+        "newValue": "NEW_MANAGER_ALIAS"
       }
-    }
+    ]
   }
 }
