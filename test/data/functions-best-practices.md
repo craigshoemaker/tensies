@@ -1,5 +1,5 @@
 ---
-title: Best Practices for Azure Functions 
+title: Best Practices for Azure Functions | Microsoft Docs
 description: Learn best practices and patterns for Azure Functions.
 author: ggailey777
 manager: gwallace

@@ -1,8 +1,9 @@
 ---
 title: App settings reference for Azure Functions
 description: Reference documentation for the Azure Functions app settings or environment variables.
+services: functions
 author: ggailey777
-manager: gwallace
+manager: jeconnoc
 keywords:
 ms.service: azure-functions
 ms.topic: conceptual
