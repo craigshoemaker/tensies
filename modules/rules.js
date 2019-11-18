@@ -16,7 +16,7 @@ const _rules = [
     description: "Remove deprecated metadata (values defined in config)",
     getPattern: config => {
       const { deprecated } = config.metadata;
-      const suffix = ":.*\n";
+      const suffix = ":.*[\n|\r\n]";
       const expression = deprecated.join(`${suffix}|`) + suffix;
       const regex = new RegExp(expression, "g");
       return regex;
