@@ -1,3 +1,5 @@
+const LINE_BREAK_PATTERN = "(\n|\r|\r\n)";
+
 const _rules = [
   {
     id: "trimTitle",
@@ -16,7 +18,7 @@ const _rules = [
     description: "Remove deprecated metadata (values defined in config)",
     getPattern: config => {
       const { deprecated } = config.metadata;
-      const suffix = ":.*[\n|\r\n]";
+      const suffix = `:.*${LINE_BREAK_PATTERN}`;
       const expression = deprecated.join(`${suffix}|`) + suffix;
       const regex = new RegExp(expression, "g");
       return regex;
@@ -53,6 +55,27 @@ const _rules = [
           `${token}: ${newValue}`
         );
       });
+      return text;
+    }
+  },
+
+  {
+    id: "removeDefaultAuthor",
+    description: "Remove default author",
+    getPattern: (token, value) => {
+      return new RegExp(`${token}: ?${value}.*${LINE_BREAK_PATTERN}`);
+    },
+    isMatch: function (text, config) {
+      const { github, alias } = config.metadata.defaultAuthor;
+      return (
+        this.getPattern("author", github).test(text) || 
+        this.getPattern("ms.author", alias).test(text)
+      );
+    },
+    run: function (text, config) {
+      const { github, alias } = config.metadata.defaultAuthor;
+      text = text.replace(this.getPattern("author", github), "");
+      text = text.replace(this.getPattern("ms.author", alias), "");
       return text;
     }
   }

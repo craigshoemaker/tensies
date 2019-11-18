@@ -2,6 +2,10 @@
   "threshold": 10,
   "filePath": "PATH_TO_FOLDER_YOU_WANT_TO_PROCESS",
   "metadata": {
+    "defaultAuthor": {
+      "github": "GITHUB_ACCOUNT_NAME",
+      "alias": "AUTHOR_ALIAS"
+    },
     "deprecated": ["documentationcenter", "services"],
     "replacements": [
       {
