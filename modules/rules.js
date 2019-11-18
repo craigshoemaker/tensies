@@ -25,7 +25,7 @@ const _rules = [
       return this.getPattern(config).test(text);
     },
     run: function(text, config) {
-      return content.replace(this.getPattern(text), "");
+      return text.replace(this.getPattern(config), "");
     }
   },
 
