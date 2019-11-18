@@ -1,11 +1,13 @@
 const _rules = [
-
   {
     id: "trimTitle",
     description: 'Trim "|" and anything after it from the metadata title',
     getPattern: () => /(title:.*)(\|.*)/,
-    run: function(content) {
-      return content.replace(this.getPattern(), "$1");
+    isMatch: function(text) {
+      return this.getPattern().test(text);
+    },
+    run: function(text) {
+      return text.replace(this.getPattern(), "$1");
     }
   },
 
@@ -19,24 +21,39 @@ const _rules = [
       const regex = new RegExp(expression, "g");
       return regex;
     },
-    run: function(content, config) {
-      return content.replace(this.getPattern(config), "");
+    isMatch: function(text, config) {
+      return this.getPattern(config).test(text);
+    },
+    run: function(text, config) {
+      return content.replace(this.getPattern(text), "");
     }
   },
 
   {
-    id: "updateManagerAlias",
-    description: "Update manager alias (values defined in config)",
-    getPattern: config => {
-      const { manager } = config.metadata.replacements;
-      return new RegExp(`manager: ?${manager.old}`);
+    id: "replaceMetadata",
+    description: "Replace metadata values defined in config.",
+    getPattern: (token, old) => new RegExp(`${token}: ?${old}`),
+    isMatch: function(text, config) {
+      const { replacements } = config.metadata;
+      let count = 0;
+      const rule = this;
+      replacements.forEach(({ token, oldValue }) => {
+        if (rule.getPattern(token, oldValue).test(text)) {
+          count++;
+        }
+      });
+      return !!count;
     },
-    run: function(content, config) {
-      const { manager } = config.metadata.replacements;
-      return content.replace(
-        this.getPattern(config),
-        `manager: ${manager.new}`
-      );
+    run: function(text, config) {
+      const { replacements } = config.metadata;
+      const rule = this;
+      replacements.forEach(({ token, oldValue, newValue }) => {
+        text = text.replace(
+          rule.getPattern(token, oldValue),
+          `${token}: ${newValue}`
+        );
+      });
+      return text;
     }
   }
 ];

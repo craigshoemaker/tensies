@@ -46,10 +46,10 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "updateManagerAlias",
+      "name": "replaceMetadata",
       "program": "${workspaceFolder}\\10.js",
       "args": [
-        "updateManagerAlias"
+        "replaceMetadata"
       ]
     }
     

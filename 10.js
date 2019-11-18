@@ -47,7 +47,7 @@ try {
         let isUpdated = false;
 
         currentRules.forEach(rule => {
-          const isMatch = rule.getPattern(config).test(text);
+          const isMatch = rule.isMatch(text, config);
           if (isMatch) {
             ruleMessages.push(`[RULE] ${rule.id}: ${rule.description}`);
             isUpdated = true;
