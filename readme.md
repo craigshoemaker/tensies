@@ -24,7 +24,7 @@ Running tensies...
 Available rules:
  - trimTitle: Trim "|" and anything after it from the metadata title
  - removeDeprecatedMetadata: Remove deprecated metadata (values defined in config)
- - updateManagerAlias: Update manager alias (values defined in config)
+ - replaceMetadata: Replace metadata values defined in config
 ```
 
 ### Run a rule
