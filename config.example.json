@@ -13,6 +13,7 @@
         "oldValue": "OLD_MANAGER_ALIAS",
         "newValue": "NEW_MANAGER_ALIAS"
       }
-    ]
+    ],
+    "ifEmpty": ["ms.assetid"]
   }
 }
