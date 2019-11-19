@@ -78,7 +78,24 @@ const _rules = [
       text = text.replace(this.getPattern("ms.author", alias), "");
       return text;
     }
-  }
+  },
+  {
+    id: "removeIfEmpty",
+    description: "Remove metadata if it's empty",
+    getPattern: config => {
+      const { ifEmpty } = config.metadata;
+      const suffix = `:.\s*${LINE_BREAK_PATTERN}`;
+      const expression = ifEmpty.join(`${suffix}|`) + suffix;
+      const regex = new RegExp(expression, "g");
+      return regex;
+    },
+    isMatch: function(text, config) {
+      return this.getPattern(config).test(text);
+    },
+    run: function(text, config) {
+      return text.replace(this.getPattern(config), "");
+    }
+  },
 ];
 
 const get = ruleName => {
