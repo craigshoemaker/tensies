@@ -6,6 +6,7 @@
       "github": "GITHUB_ACCOUNT_NAME",
       "alias": "AUTHOR_ALIAS"
     },
+    "optionals": ["ms.assetid"],
     "deprecated": ["documentationcenter", "services"],
     "replacements": [
       {

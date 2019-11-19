@@ -65,17 +65,44 @@ const _rules = [
     getPattern: (token, value) => {
       return new RegExp(`${token}: ?${value}.*${LINE_BREAK_PATTERN}`);
     },
-    isMatch: function (text, config) {
+    isMatch: function(text, config) {
       const { github, alias } = config.metadata.defaultAuthor;
       return (
-        this.getPattern("author", github).test(text) || 
+        this.getPattern("author", github).test(text) ||
         this.getPattern("ms.author", alias).test(text)
       );
     },
-    run: function (text, config) {
+    run: function(text, config) {
       const { github, alias } = config.metadata.defaultAuthor;
       text = text.replace(this.getPattern("author", github), "");
       text = text.replace(this.getPattern("ms.author", alias), "");
+      return text;
+    }
+  },
+
+  {
+    id: "removeIfEmpty",
+    description: "Removes optional metadata items if there is no value",
+    getPattern: (token) => {
+      return new RegExp(`${token}:\s*${LINE_BREAK_PATTERN}`);
+    },
+    isMatch: function(text, config) {
+      const { optionals } = config.metadata;
+      const rule = this;
+      let count = 0;
+      optionals.forEach(item => {
+        if(rule.getPattern(item).test(text)) {
+          count++;
+        }
+      })
+      return !!count
+    },
+    run: function(text, config) {
+      const { optionals } = config.metadata;
+      const rule = this;
+      optionals.forEach(item => {
+        text = text.replace(rule.getPattern(item), "");
+      });
       return text;
     }
   }

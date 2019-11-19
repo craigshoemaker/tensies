@@ -61,6 +61,16 @@
       "args": [
         "replaceMetadata"
       ]
+    },
+
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "removeIfEmpty",
+      "program": "${workspaceFolder}\\10.js",
+      "args": [
+        "removeIfEmpty"
+      ]
     }
     
   ]
