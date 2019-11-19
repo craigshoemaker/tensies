@@ -81,7 +81,7 @@ const _rules = [
   },
   {
     id: "removeIfEmpty",
-    description: "Remove metadata if it's empty",
+    description: "Remove empty metadata defined in config (ifEmpty)",
     getPattern: config => {
       const { ifEmpty } = config.metadata;
       const suffix = `:.\s*${LINE_BREAK_PATTERN}`;
