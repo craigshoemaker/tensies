@@ -1,4 +1,4 @@
-const LINE_BREAK_PATTERN = "(\n|\r|\r\n)";
+const LINE_BREAK_PATTERN = "(\r\n|\n|\r)";
 
 const _rules = [
   {
