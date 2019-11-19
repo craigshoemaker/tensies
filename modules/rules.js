@@ -84,7 +84,7 @@ const _rules = [
     id: "removeIfEmpty",
     description: "Removes optional metadata items if there is no value",
     getPattern: (token) => {
-      return new RegExp(`${token}:\s*${LINE_BREAK_PATTERN}`);
+      return new RegExp(`${token}:\\s*${LINE_BREAK_PATTERN}`);
     },
     isMatch: function(text, config) {
       const { optionals } = config.metadata;
