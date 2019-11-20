@@ -6,8 +6,7 @@
       "github": "GITHUB_ACCOUNT_NAME",
       "alias": "AUTHOR_ALIAS"
     },
-    "optionals": ["ms.assetid"],
-    "deprecated": ["documentationcenter", "services"],
+    "deprecated": ["documentationcenter","services","ms.service","keywords","manager","editor","tags","ms.tgt_pltfrm","ms.workload","ms.devlang"],
     "replacements": [
       {
         "token": "manager",
