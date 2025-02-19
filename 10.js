@@ -28,6 +28,10 @@ try {
 
   if (hasRulesToRun) {
 
+    if (!fs.existsSync(config.filePath)) {
+      throw new Error(`Directory not found: ${config.filePath}`);
+    }
+
     fs.readdirSync(config.filePath).forEach(fileName => {
       if (/\.md/.test(fileName)) {
         fileInfo.push({
